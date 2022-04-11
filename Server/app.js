@@ -5,7 +5,11 @@ const express = require('express'),
     MongoStore = require('connect-mongo'),
     config = require('./config/config'),
     port = config.server.port,
-    mainPage = require('./routes/mainPage');
+    mainPage = require('./routes/mainPage'),
+    auth = require('./routes/auth'),
+    resume = require('./routes/resume'),
+    socials = require('./routes/socials'),
+    path = require('path');
 
 let cors = require('cors');
 
@@ -15,6 +19,9 @@ mongoose.connect('mongodb://localhost:27017/myapp' , { useNewUrlParser: true });
 
 app.use(cors());
 app.use('/', mainPage);
+app.use('/socials', socials);
+app.use('/resume', resume);
+app.use('/admin', auth);
 
 
 app.use(session({
